@@ -2,9 +2,9 @@
  [![GitHub license](https://img.shields.io/github/license/Sam-Martin/servicenow-powershell.svg)](LICENSE) [![Build Status](https://travis-ci.org/X0nic/chef-snapraid.svg)](https://travis-ci.org/sam-martin/aws-image-upload-without-ec2)  
 This repository contains the Node.js, HTML, JavaScript, and supporting jQuery plugins to upload images securely to S3 using [Amazon API Gateway](https://aws.amazon.com/api-gateway/) and [AWS Lambda](https://aws.amazon.com/lambda/) to generate a [signed upload url](http://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html).  
 ## Demo
-You can find a demo online at [ImageUpload.SamMart.in](http://imageupload.sammart.in/) (images are deleted automatically almost immediately).
+You can find a demo online at [ImageUpload.mocciavincenzo.it](http://imageupload.mocciavincenzo.it/) (images are deleted automatically almost immediately).
 ## Overview
-This example project is simply an exercise for me (Sam Martin) to dabble in:
+This example project is simply an exercise for us (Vincenzo Moccia and Sam Martin) to dabble in:
 
 1. AWS Lambda  
 2. Amazon API Gateway  
@@ -16,7 +16,7 @@ The execution workflow is extremely simple. From loading the page in the browser
 2. JavaScript calls out to the API Gateway endpoint using jQuery's `$.post` to retrieve a signed upload URL  
 3. API Gateway calls the Lambda Node.js script  
 4. Node.js script assumes the IAM role associated with it which has permission to upload an object to the s3 bucket  
-5. Node.js uses the inbuilt AWS SDK to `getSignedUrl` and returns it in its `context.done`  
+5. Node.js uses the inbuilt AWS SDK to `getSignedUrl` and returns it in its `callback`  
 6. This url is returned to the client-side JS via API Gateway and is then used to upload a file using [BlueImp's jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload)  
 
 ## Future and Alternatives
@@ -51,8 +51,8 @@ ToDo
                 "s3:PutObject"
             ],
             "Resource": [
-                "arn:aws:s3:::image-upload-smartin",
-                "arn:aws:s3:::image-upload-smartin/*"
+                "arn:aws:s3:::github.beyondtech.it",
+                "arn:aws:s3:::github.beyondtech.it/*"
             ]
         }
     ]
@@ -84,10 +84,11 @@ ToDo
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::image-upload-smartin/*"
+            "Resource": "arn:aws:s3:::github.beyondtech.it/*"
         }
     ]
 }
 ```
-## Author
+## Authors
 Author:: Sam Martin (<samjackmartin@gmail.com>)
+Author:: Vincenzo Moccia (<me@mocciavincenzo.it>)
